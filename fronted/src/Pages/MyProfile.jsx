@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const MyProfile = () => {
   const [username, setUsername] = useState("");
@@ -36,7 +36,7 @@ const MyProfile = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/user/profile`, axiosConfig);
+      const res = await axios.get(`${BASE_URL}/api/user/profile`, axiosConfig);
       setUsername(res.data.username);
       setEmail(res.data.email);
       setNewUsername(res.data.username);
@@ -54,7 +54,7 @@ const MyProfile = () => {
     e.preventDefault();
     try {
       const payload = { username: newUsername, email: newEmail };
-      await axios.put(`${BASE_URL}/user/profile`, payload, axiosConfig);
+      await axios.put(`${BASE_URL}/api/user/profile`, payload, axiosConfig);
 
       showToast("success", "Profile updated successfully");
       setUsername(newUsername);

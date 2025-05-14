@@ -2,7 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -24,7 +25,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post(`${BASE_URL}/user/login`, { email, password });
+      const res = await axios.post(`${BASE_URL}/api/user/login`, { email, password });
       localStorage.setItem("token", res.data.token);
       setMessage("Login successful!");
       setFormData({ email: "", password: "" });

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -64,7 +64,7 @@ const ChangePassword = () => {
       };
 
       const res = await axios.put(
-        `${process.env.REACT_APP_BASE_URL}/user/password`, // Using environment variable
+        `${BASE_URL}/api/user/password`, // Using environment variable
         payload,
         axiosConfig
       );

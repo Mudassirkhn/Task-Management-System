@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 const HomePage = () => {
   const [taskName, setTaskName] = useState("");
@@ -48,10 +49,10 @@ const HomePage = () => {
 
     try {
       if (editTaskId) {
-        await axios.put(`${BASE_URL}/task/${editTaskId}`, payload, axiosConfig);
+        await axios.put(`${BASE_URL}/api/task/${editTaskId}`, payload, axiosConfig);
         showToast("success", "Task updated successfully!");
       } else {
-        await axios.post(`${BASE_URL}/task`, payload, axiosConfig);
+        await axios.post(`${BASE_URL}/api/task`, payload, axiosConfig);
         showToast("success", "Task added successfully!");
       }
 
@@ -68,7 +69,7 @@ const HomePage = () => {
 
   const getTasks = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/tasks`, axiosConfig);
+      const res = await axios.get(`${BASE_URL}/api/tasks`, axiosConfig);
       setTasks(res.data);
     } catch (error) {
       console.error("Fetch Error:", error);
@@ -88,7 +89,7 @@ const HomePage = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`${BASE_URL}/task/${id}`, axiosConfig);
+        await axios.delete(`${BASE_URL}/api/task/${id}`, axiosConfig);
         showToast("success", "Task deleted!");
         getTasks();
       } catch (error) {
@@ -110,7 +111,7 @@ const HomePage = () => {
 
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/user/profile`, axiosConfig);
+        const res = await axios.get(`${BASE_URL}/api/user/profile`, axiosConfig);
         setUserName(res.data.username || "User");
       } catch (error) {
         console.error("Profile Fetch Error:", error);
